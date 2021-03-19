@@ -1,5 +1,6 @@
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     projectile = sprites.createProjectileFromSprite(assets.image`galgaDart1`, spacePlane, 200, 0)
+    music.pewPew.play()
 })
 info.onLifeZero(function () {
     music.bigCrash.play()
