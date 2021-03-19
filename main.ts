@@ -1,31 +1,20 @@
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    projectile = sprites.createProjectileFromSprite(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . 5 5 . . . . . . . . . . . . . 
-        . 5 5 5 a a a a a a a 3 9 9 . . 
-        . 5 5 a 5 a a a a a a a 3 9 9 . 
-        . . 5 5 a a a a a a a 3 9 9 . . 
-        . 5 5 . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, spacePlane, 200, 0)
+    projectile = sprites.createProjectileFromSprite(assets.image`galgaDart1`, spacePlane, 200, 0)
+})
+info.onLifeZero(function () {
+    music.bigCrash.play()
+    game.over(false, effects.blizzard)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy(effects.fire, 100)
     info.changeScoreBy(1)
+    music.baDing.play()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy(effects.confetti, 100)
     scene.cameraShake(4, 500)
     info.changeLifeBy(-1)
+    music.zapped.play()
 })
 let bogey: Sprite = null
 let projectile: Sprite = null
